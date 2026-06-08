@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RICE Scoring — Priorização de Projetos de IA</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/app.css" />
+</head>
+<body>
+
+<!-- ───── NAVBAR ───── -->
+<nav class="navbar navbar-expand-lg navbar-dark rice-navbar sticky-top">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center gap-2" href="#">
+      <span class="brand-icon"><i class="bi bi-cpu-fill"></i></span>
+      <span class="fw-700">RICE<span class="text-accent">·IA</span></span>
+    </a>
+    <div class="d-flex align-items-center gap-3">
+      <button class="btn btn-sm btn-outline-light" id="btnExport" title="Exportar CSV">
+        <i class="bi bi-download me-1"></i>CSV
+      </button>
+      <button class="btn btn-sm btn-accent" data-bs-toggle="modal" data-bs-target="#projectModal" id="btnAddNav">
+        <i class="bi bi-plus-lg me-1"></i>Novo Projeto
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- ───── HERO ───── -->
+<section class="hero-section">
+  <div class="container text-center py-5">
+    <div class="hero-badge mb-3">
+      <i class="bi bi-stars me-1"></i>Framework de Priorização
+    </div>
+    <h1 class="hero-title">Priorize seus Projetos de IA<br class="d-none d-md-block" /> com o Framework RICE</h1>
+    <p class="hero-subtitle mx-auto">
+      Tome decisões baseadas em dados, não em intuição. Avalie cada iniciativa de IA pelos critérios de
+      <strong>Alcance</strong>, <strong>Impacto</strong>, <strong>Confiança</strong> e <strong>Esforço</strong>.
+    </p>
+    <div class="d-flex gap-3 justify-content-center flex-wrap">
+      <button class="btn btn-accent btn-lg px-4" data-bs-toggle="modal" data-bs-target="#projectModal" id="btnAddHero">
+        <i class="bi bi-plus-circle me-2"></i>Adicionar Projeto
+      </button>
+      <button class="btn btn-outline-light btn-lg px-4" id="btnLearnMore">
+        <i class="bi bi-book me-2"></i>Como funciona
+      </button>
+    </div>
+    <!-- Score preview pill -->
+    <div class="formula-pill mt-5 mx-auto">
+      <span class="formula-part reach">Alcance</span>
+      <span class="formula-op">×</span>
+      <span class="formula-part impact">Impacto</span>
+      <span class="formula-op">×</span>
+      <span class="formula-part confidence">Confiança</span>
+      <span class="formula-op">÷</span>
+      <span class="formula-part effort">Esforço</span>
+      <span class="formula-op">=</span>
+      <span class="formula-part score">Score RICE</span>
+    </div>
+  </div>
+</section>
+
+<!-- ───── RICE GUIDE ───── -->
+<section class="guide-section py-5" id="guideSection">
+  <div class="container">
+    <div class="section-header text-center mb-5">
+      <h2 class="section-title">Os 4 Pilares do RICE</h2>
+      <p class="section-subtitle">Entenda cada dimensão com exemplos aplicados a projetos de Inteligência Artificial</p>
+    </div>
+    <div class="row g-4">
+
+      <!-- Reach -->
+      <div class="col-md-6 col-xl-3">
+        <div class="guide-card guide-reach h-100">
+          <div class="guide-icon-wrap reach-bg">
+            <i class="bi bi-people-fill"></i>
+          </div>
+          <h3 class="guide-card-title">Alcance <span class="guide-en">(Reach)</span></h3>
+          <p class="guide-desc">Quantas pessoas ou processos serão impactados pela solução de IA em um período definido?</p>
+          <ul class="guide-examples">
+            <li><i class="bi bi-check2 me-1"></i>Usuários únicos que interagirão com o modelo por mês</li>
+            <li><i class="bi bi-check2 me-1"></i>Volume de transações processadas automaticamente</li>
+            <li><i class="bi bi-check2 me-1"></i>Colaboradores que usarão a ferramenta de IA</li>
+          </ul>
+          <div class="guide-tip">
+            <i class="bi bi-lightbulb-fill me-1"></i>
+            <strong>Dica:</strong> Use dados históricos ou benchmark do setor para estimar o alcance.
+          </div>
+        </div>
+      </div>
+
+      <!-- Impact -->
+      <div class="col-md-6 col-xl-3">
+        <div class="guide-card guide-impact h-100">
+          <div class="guide-icon-wrap impact-bg">
+            <i class="bi bi-graph-up-arrow"></i>
+          </div>
+          <h3 class="guide-card-title">Impacto <span class="guide-en">(Impact)</span></h3>
+          <p class="guide-desc">Qual a magnitude da mudança que esta solução de IA trará para o negócio ou para o usuário?</p>
+          <div class="impact-table">
+            <div class="impact-row"><span class="impact-val v3">3</span><span>Massivo — transforma o processo</span></div>
+            <div class="impact-row"><span class="impact-val v2">2</span><span>Alto — ganho significativo</span></div>
+            <div class="impact-row"><span class="impact-val v1">1</span><span>Médio — melhoria notável</span></div>
+            <div class="impact-row"><span class="impact-val v05">0,5</span><span>Baixo — melhoria pequena</span></div>
+            <div class="impact-row"><span class="impact-val v025">0,25</span><span>Mínimo — impacto marginal</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confidence -->
+      <div class="col-md-6 col-xl-3">
+        <div class="guide-card guide-confidence h-100">
+          <div class="guide-icon-wrap confidence-bg">
+            <i class="bi bi-shield-check"></i>
+          </div>
+          <h3 class="guide-card-title">Confiança <span class="guide-en">(Confidence)</span></h3>
+          <p class="guide-desc">Quão certo o time está nas estimativas de alcance, impacto e esforço deste projeto de IA?</p>
+          <ul class="guide-examples">
+            <li><i class="bi bi-circle-fill text-success me-1" style="font-size:.5rem"></i><strong>100%</strong> — Dados disponíveis, POC validado, equipe experiente</li>
+            <li><i class="bi bi-circle-fill text-warning me-1" style="font-size:.5rem"></i><strong>80%</strong> — Alguns riscos técnicos ou dados parciais</li>
+            <li><i class="bi bi-circle-fill text-danger me-1" style="font-size:.5rem"></i><strong>50%</strong> — Incertezas em dados, tecnologia ou requisitos</li>
+          </ul>
+          <div class="guide-tip">
+            <i class="bi bi-lightbulb-fill me-1"></i>
+            <strong>Dica:</strong> Seja honesto. Superestimar confiança distorce o ranking.
+          </div>
+        </div>
+      </div>
+
+      <!-- Effort -->
+      <div class="col-md-6 col-xl-3">
+        <div class="guide-card guide-effort h-100">
+          <div class="guide-icon-wrap effort-bg">
+            <i class="bi bi-hourglass-split"></i>
+          </div>
+          <h3 class="guide-card-title">Esforço <span class="guide-en">(Effort)</span></h3>
+          <p class="guide-desc">Quantos meses-pessoa serão necessários para entregar esta solução de IA do início ao fim?</p>
+          <ul class="guide-examples">
+            <li><i class="bi bi-check2 me-1"></i>Coleta e preparação dos dados</li>
+            <li><i class="bi bi-check2 me-1"></i>Desenvolvimento e treinamento do modelo</li>
+            <li><i class="bi bi-check2 me-1"></i>Integração, deploy e monitoramento</li>
+          </ul>
+          <div class="guide-tip">
+            <i class="bi bi-lightbulb-fill me-1"></i>
+            <strong>Dica:</strong> Projetos com IA costumam ter 40-60% do esforço em dados.
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ───── PROJECTS SECTION ───── -->
+<section class="projects-section py-5 bg-light">
+  <div class="container">
+    <div class="d-flex align-items-center justify-content-between flex-wrap gap-3 mb-4">
+      <div>
+        <h2 class="section-title mb-1">Ranking de Projetos</h2>
+        <p class="section-subtitle mb-0">Ordenado automaticamente do maior para o menor score RICE</p>
+      </div>
+      <div class="d-flex gap-2 align-items-center">
+        <span class="badge-legend critical">Crítico ≥100</span>
+        <span class="badge-legend high">Alto 50–99</span>
+        <span class="badge-legend medium">Médio 20–49</span>
+        <span class="badge-legend low">Baixo &lt;20</span>
+      </div>
+    </div>
+
+    <!-- Empty state -->
+    <div id="emptyState" class="empty-state text-center py-5">
+      <div class="empty-icon mb-3"><i class="bi bi-inbox"></i></div>
+      <h4>Nenhum projeto cadastrado ainda</h4>
+      <p class="text-muted">Clique em <strong>Adicionar Projeto</strong> para começar a priorizar suas iniciativas de IA.</p>
+      <button class="btn btn-accent mt-2" data-bs-toggle="modal" data-bs-target="#projectModal">
+        <i class="bi bi-plus-circle me-2"></i>Adicionar primeiro projeto
+      </button>
+    </div>
+
+    <!-- Projects grid -->
+    <div id="projectsGrid" class="row g-4 d-none">
+      <!-- Cards rendered by JS -->
+    </div>
+
+    <!-- Chart -->
+    <div id="chartSection" class="chart-container mt-5 d-none">
+      <h5 class="chart-title mb-4"><i class="bi bi-bar-chart-fill me-2"></i>Comparativo Visual</h5>
+      <canvas id="riceChart" height="100"></canvas>
+    </div>
+  </div>
+</section>
+
+<!-- ───── FOOTER ───── -->
+<footer class="rice-footer py-4">
+  <div class="container text-center">
+    <p class="mb-1 text-muted small">
+      Baseado no framework RICE criado pela <strong>Intercom</strong> — adaptado para priorização de projetos de IA.
+    </p>
+    <p class="mb-0 text-muted small">
+      <i class="bi bi-github me-1"></i>
+      <a href="https://github.com/josercf/rice-scoring" target="_blank" rel="noopener" class="footer-link">josercf/rice-scoring</a>
+    </p>
+  </div>
+</footer>
+
+<!-- ───── ADD / EDIT MODAL ───── -->
+<div class="modal fade" id="projectModal" tabindex="-1" aria-labelledby="projectModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header border-0 pb-0">
+        <h5 class="modal-title" id="projectModalLabel">
+          <i class="bi bi-folder-plus me-2 text-accent-muted"></i>
+          <span id="modalTitleText">Novo Projeto de IA</span>
+        </h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+      </div>
+      <div class="modal-body pt-3">
+        <form id="projectForm" novalidate>
+          <input type="hidden" id="projectId" />
+
+          <!-- Name + Description -->
+          <div class="row g-3 mb-4">
+            <div class="col-12">
+              <label class="form-label fw-600" for="projectName">Nome do Projeto <span class="text-danger">*</span></label>
+              <input type="text" class="form-control form-control-lg" id="projectName"
+                     placeholder="Ex.: Chatbot de atendimento ao cliente" required />
+              <div class="invalid-feedback">Por favor, informe o nome do projeto.</div>
+            </div>
+            <div class="col-12">
+              <label class="form-label fw-600" for="projectDesc">Descrição <span class="text-muted fw-400">(opcional)</span></label>
+              <textarea class="form-control" id="projectDesc" rows="2"
+                        placeholder="Descreva brevemente o objetivo ou escopo desta iniciativa de IA"></textarea>
+            </div>
+          </div>
+
+          <!-- RICE Fields -->
+          <div class="row g-4">
+
+            <!-- Reach -->
+            <div class="col-md-6">
+              <div class="rice-field-card reach-field">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <label class="form-label rice-label mb-0" for="reach">
+                    <span class="rice-letter reach-letter">R</span>
+                    Alcance (Reach)
+                  </label>
+                  <button type="button" class="btn-hint" data-bs-toggle="popover"
+                          data-bs-trigger="click"
+                          data-bs-html="true"
+                          data-bs-placement="top"
+                          title="<i class='bi bi-people-fill'></i> Alcance (Reach)"
+                          data-bs-content="
+                            <p class='mb-2'>Quantas <strong>pessoas ou processos</strong> este projeto vai beneficiar em um período?</p>
+                            <p class='mb-2'><strong>Exemplos:</strong></p>
+                            <ul class='mb-2 ps-3'>
+                              <li>Chatbot: 5.000 usuários/mês</li>
+                              <li>Detecção de fraude: 200.000 transações/mês</li>
+                              <li>Ferramenta interna: 120 colaboradores</li>
+                            </ul>
+                            <p class='mb-0 text-muted'><em>Use dados históricos ou estimativas conservadoras.</em></p>
+                          ">
+                    <i class="bi bi-question-circle"></i>
+                  </button>
+                </div>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="reach" min="1" placeholder="Ex: 5000" required />
+                  <span class="input-group-text">pessoas/mês</span>
+                </div>
+                <div class="invalid-feedback">Informe um valor maior que 0.</div>
+              </div>
+            </div>
+
+            <!-- Impact -->
+            <div class="col-md-6">
+              <div class="rice-field-card impact-field">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <label class="form-label rice-label mb-0" for="impact">
+                    <span class="rice-letter impact-letter">I</span>
+                    Impacto (Impact)
+                  </label>
+                  <button type="button" class="btn-hint" data-bs-toggle="popover"
+                          data-bs-trigger="click"
+                          data-bs-html="true"
+                          data-bs-placement="top"
+                          title="<i class='bi bi-graph-up-arrow'></i> Impacto (Impact)"
+                          data-bs-content="
+                            <p class='mb-2'>Qual a <strong>magnitude da mudança</strong> esperada?</p>
+                            <table class='table table-sm mb-0' style='font-size:.85rem'>
+                              <tr><td><strong>3</strong></td><td>Massivo — transforma completamente o processo (&gt;80% ganho)</td></tr>
+                              <tr><td><strong>2</strong></td><td>Alto — melhoria significativa (&gt;40% ganho)</td></tr>
+                              <tr><td><strong>1</strong></td><td>Médio — melhoria notável (10–40% ganho)</td></tr>
+                              <tr><td><strong>0,5</strong></td><td>Baixo — melhoria pequena (&lt;10% ganho)</td></tr>
+                              <tr><td><strong>0,25</strong></td><td>Mínimo — impacto marginal</td></tr>
+                            </table>
+                          ">
+                    <i class="bi bi-question-circle"></i>
+                  </button>
+                </div>
+                <select class="form-select" id="impact" required>
+                  <option value="" disabled selected>Selecione o impacto</option>
+                  <option value="3">3 — Massivo (transforma o processo)</option>
+                  <option value="2">2 — Alto (ganho significativo)</option>
+                  <option value="1">1 — Médio (melhoria notável)</option>
+                  <option value="0.5">0,5 — Baixo (melhoria pequena)</option>
+                  <option value="0.25">0,25 — Mínimo (impacto marginal)</option>
+                </select>
+                <div class="invalid-feedback">Selecione o nível de impacto.</div>
+              </div>
+            </div>
+
+            <!-- Confidence -->
+            <div class="col-md-6">
+              <div class="rice-field-card confidence-field">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <label class="form-label rice-label mb-0" for="confidence">
+                    <span class="rice-letter confidence-letter">C</span>
+                    Confiança (Confidence)
+                  </label>
+                  <button type="button" class="btn-hint" data-bs-toggle="popover"
+                          data-bs-trigger="click"
+                          data-bs-html="true"
+                          data-bs-placement="top"
+                          title="<i class='bi bi-shield-check'></i> Confiança (Confidence)"
+                          data-bs-content="
+                            <p class='mb-2'>Quão <strong>seguro</strong> o time está nas estimativas?</p>
+                            <ul class='mb-2 ps-3'>
+                              <li><strong>100%</strong> — Dados prontos, POC validado, equipe experiente na tecnologia</li>
+                              <li><strong>80%</strong> — Alguns riscos técnicos, dados parcialmente disponíveis</li>
+                              <li><strong>50%</strong> — Incertezas relevantes em dados, modelo ou requisitos</li>
+                            </ul>
+                            <p class='mb-0 text-warning'><i class='bi bi-exclamation-triangle me-1'></i><em>Seja honesto: superestimar confiança distorce o ranking.</em></p>
+                          ">
+                    <i class="bi bi-question-circle"></i>
+                  </button>
+                </div>
+                <select class="form-select" id="confidence" required>
+                  <option value="" disabled selected>Selecione a confiança</option>
+                  <option value="1">100% — Alta (dados e tech validados)</option>
+                  <option value="0.8">80% — Média (alguns riscos técnicos)</option>
+                  <option value="0.5">50% — Baixa (incertezas significativas)</option>
+                </select>
+                <div class="invalid-feedback">Selecione o nível de confiança.</div>
+              </div>
+            </div>
+
+            <!-- Effort -->
+            <div class="col-md-6">
+              <div class="rice-field-card effort-field">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                  <label class="form-label rice-label mb-0" for="effort">
+                    <span class="rice-letter effort-letter">E</span>
+                    Esforço (Effort)
+                  </label>
+                  <button type="button" class="btn-hint" data-bs-toggle="popover"
+                          data-bs-trigger="click"
+                          data-bs-html="true"
+                          data-bs-placement="top"
+                          title="<i class='bi bi-hourglass-split'></i> Esforço (Effort)"
+                          data-bs-content="
+                            <p class='mb-2'>Total de <strong>meses-pessoa</strong> para entregar a solução.</p>
+                            <p class='mb-2'><strong>Inclua tudo:</strong></p>
+                            <ul class='mb-2 ps-3'>
+                              <li>Coleta e preparação de dados</li>
+                              <li>Desenvolvimento e treinamento do modelo</li>
+                              <li>Integração e deploy</li>
+                              <li>Monitoramento inicial</li>
+                            </ul>
+                            <p class='mb-2'><strong>Referência rápida:</strong></p>
+                            <ul class='mb-0 ps-3'>
+                              <li>0,5 — API ou modelo pré-treinado</li>
+                              <li>1–2 — Customização moderada</li>
+                              <li>3–6 — Modelo customizado</li>
+                              <li>6+ — Plataforma / grande escala</li>
+                            </ul>
+                          ">
+                    <i class="bi bi-question-circle"></i>
+                  </button>
+                </div>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="effort" min="0.5" step="0.5" placeholder="Ex: 3" required />
+                  <span class="input-group-text">meses-pessoa</span>
+                </div>
+                <div class="invalid-feedback">Informe um valor de esforço maior que 0.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Score Preview -->
+          <div id="scorePreview" class="score-preview mt-4 d-none">
+            <div class="d-flex align-items-center justify-content-between">
+              <div>
+                <span class="score-preview-label">Score RICE Calculado</span>
+                <div class="score-preview-formula" id="scoreFormula"></div>
+              </div>
+              <div class="score-preview-value" id="scoreValue">—</div>
+            </div>
+          </div>
+
+        </form>
+      </div>
+      <div class="modal-footer border-0 pt-0">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-accent px-4" id="btnSaveProject">
+          <i class="bi bi-floppy me-2"></i>Salvar Projeto
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── DELETE CONFIRM MODAL ───── -->
+<div class="modal fade" id="deleteModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-sm">
+    <div class="modal-content">
+      <div class="modal-body text-center py-4">
+        <div class="delete-icon mb-3"><i class="bi bi-trash3"></i></div>
+        <h5>Remover Projeto?</h5>
+        <p class="text-muted small mb-0">Esta ação não pode ser desfeita.</p>
+      </div>
+      <div class="modal-footer border-0 justify-content-center pt-0">
+        <button type="button" class="btn btn-outline-secondary btn-sm" data-bs-dismiss="modal">Cancelar</button>
+        <button type="button" class="btn btn-danger btn-sm px-4" id="btnConfirmDelete">Remover</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ───── TOAST ───── -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="appToast" class="toast align-items-center border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body" id="toastMessage">Mensagem</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Fechar"></button>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
